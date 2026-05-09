@@ -3,7 +3,6 @@ import { BrandBookState } from './types';
 import { 
   ChevronLeft, 
   ChevronRight, 
-  Settings2, 
   Download,
   Image as ImageIcon, 
   Palette, 
@@ -39,59 +38,26 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
   const nextSlide = () => updateField('currentSlide', Math.min(totalSlides - 1, state.currentSlide + 1));
   const prevSlide = () => updateField('currentSlide', Math.max(0, state.currentSlide - 1));
 
-  const Label = ({ children, className }: { children: React.ReactNode, className?: string }) => (
-    <label className={`block text-[10px] font-bold uppercase text-slate-400 mb-1.5 tracking-wider ${className || ''}`}>{children}</label>
-  );
-
-  const Input = (props: React.InputHTMLAttributes<HTMLInputElement>) => (
-    <input 
-      {...props} 
-      className="w-full bg-slate-50 border border-slate-200 rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-    />
-  );
-
-  const TextArea = (props: React.TextareaHTMLAttributes<HTMLTextAreaElement>) => (
-    <textarea 
-      {...props} 
-      className="w-full bg-slate-50 border border-slate-200 rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all min-h-[80px]"
-    />
-  );
-
-  const TabButton = ({ id, icon: Icon, label }: { id: string, icon: any, label: string }) => (
-    <button
-      onClick={() => setActiveTab(id as any)}
-      className={`flex-1 flex flex-col items-center justify-center py-3 gap-1 transition-colors ${
-        activeTab === id ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50/50' : 'text-slate-400 hover:bg-slate-50 hover:text-slate-600'
-      }`}
-    >
-      <Icon size={16} />
-      <span className="text-[9px] font-bold uppercase tracking-widest">{label}</span>
-    </button>
-  );
-
   return (
-    <div className="w-[380px] bg-white border-r border-slate-100 flex flex-col h-full overflow-hidden shadow-2xl z-10 font-sans">
-      <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-white relative">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
-            <Settings2 className="text-white" size={18} />
-          </div>
-          <div>
-            <h1 className="font-black text-lg tracking-tight leading-none uppercase">Editor</h1>
-            <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mt-1">v{state.version}</p>
-          </div>
+    <div className="w-[380px] bg-white border-r-2 border-black flex flex-col h-full overflow-hidden z-10 font-sans">
+      
+      {/* HEADER - BRUTALIST */}
+      <div className="p-6 border-b-2 border-black bg-white flex items-center justify-between">
+        <div>
+          <h1 className="font-black text-2xl tracking-tighter uppercase text-black leading-none">Superclass</h1>
+          <p className="text-[10px] text-black uppercase font-mono font-bold tracking-widest mt-1 bg-[#00F5FF] inline-block px-1">BUILDER v{state.version}</p>
         </div>
-        <div className="flex gap-1">
+        <div className="flex gap-2">
           <button 
             onClick={prevSlide}
-            className="p-2 hover:bg-slate-100 rounded-full transition-colors disabled:opacity-20"
+            className="w-10 h-10 flex items-center justify-center border-2 border-black hover:bg-black hover:text-white transition-colors disabled:opacity-20 disabled:hover:bg-transparent disabled:hover:text-black"
             disabled={state.currentSlide === 0}
           >
             <ChevronLeft size={20} />
           </button>
           <button 
             onClick={nextSlide}
-            className="p-2 hover:bg-slate-100 rounded-full transition-colors disabled:opacity-20"
+            className="w-10 h-10 flex items-center justify-center border-2 border-black hover:bg-black hover:text-white transition-colors disabled:opacity-20 disabled:hover:bg-transparent disabled:hover:text-black"
             disabled={state.currentSlide === totalSlides - 1}
           >
             <ChevronRight size={20} />
@@ -99,51 +65,77 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
         </div>
       </div>
 
-      <div className="flex border-b border-slate-100 bg-white">
-        <TabButton id="identity" icon={FileText} label="Identity" />
-        <TabButton id="aesthetics" icon={Palette} label="Aesthetics" />
-        <TabButton id="export" icon={Download} label="Export" />
+      {/* TABS - BRUTALIST */}
+      <div className="flex border-b-2 border-black bg-white">
+        {[
+          { id: 'identity', icon: FileText, label: 'DATA' },
+          { id: 'aesthetics', icon: Palette, label: 'STYLE' },
+          { id: 'export', icon: Download, label: 'PDF' }
+        ].map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id as any)}
+            className={`flex-1 flex flex-col items-center justify-center py-4 gap-2 border-r-2 border-black last:border-r-0 transition-colors ${
+              activeTab === tab.id ? 'bg-black text-white' : 'hover:bg-slate-100 text-black'
+            }`}
+          >
+            <tab.icon size={16} strokeWidth={activeTab === tab.id ? 3 : 2} />
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest">{tab.label}</span>
+          </button>
+        ))}
       </div>
 
-      <div className="flex-1 overflow-y-auto p-6 bg-white">
+      {/* CONTENT */}
+      <div className="flex-1 overflow-y-auto p-8 bg-white">
         {activeTab === 'identity' && (
-          <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+          <div className="space-y-8 animate-in fade-in duration-300">
             <div>
-              <Label>Brand Name</Label>
-              <Input value={state.brandName} onChange={(e) => updateField('brandName', e.target.value)} />
+              <label className="block text-[11px] font-mono font-bold uppercase text-black mb-2">Brand Name</label>
+              <input 
+                type="text"
+                value={state.brandName} 
+                onChange={(e) => updateField('brandName', e.target.value)} 
+                className="w-full bg-white border-2 border-black p-3 text-sm font-bold focus:outline-none focus:ring-0 focus:bg-[#00F5FF]/10 transition-colors rounded-none"
+              />
             </div>
             <div>
-              <Label>Tagline</Label>
-              <Input value={state.tagline} onChange={(e) => updateField('tagline', e.target.value)} />
+              <label className="block text-[11px] font-mono font-bold uppercase text-black mb-2">Tagline</label>
+              <input 
+                type="text"
+                value={state.tagline} 
+                onChange={(e) => updateField('tagline', e.target.value)} 
+                className="w-full bg-white border-2 border-black p-3 text-sm font-bold focus:outline-none focus:ring-0 focus:bg-[#00F5FF]/10 transition-colors rounded-none"
+              />
             </div>
             <div>
-              <Label>About / Introduction</Label>
-              <TextArea value={state.introduction} onChange={(e) => updateField('introduction', e.target.value)} />
+              <label className="block text-[11px] font-mono font-bold uppercase text-black mb-2">Mission / About</label>
+              <textarea 
+                value={state.introduction} 
+                onChange={(e) => updateField('introduction', e.target.value)} 
+                className="w-full bg-white border-2 border-black p-3 text-sm font-bold focus:outline-none focus:ring-0 focus:bg-[#00F5FF]/10 transition-colors min-h-[120px] resize-none rounded-none"
+              />
             </div>
             
-            <div className="pt-4 border-t border-slate-100">
-              <Label className="flex items-center gap-2 mb-3">
-                <ImageIcon size={12} /> Primary Logo
-              </Label>
-              <div className="bg-slate-50 border-2 border-dashed border-slate-200 rounded-xl p-6 text-center hover:bg-slate-100 transition-colors cursor-pointer relative group">
+            <div className="pt-8 border-t-2 border-black">
+              <label className="flex items-center gap-2 mb-4 text-[11px] font-mono font-bold uppercase text-black">
+                <ImageIcon size={14} /> Primary Mark
+              </label>
+              <div className="bg-white border-2 border-dashed border-black p-8 text-center hover:bg-slate-100 transition-colors cursor-pointer relative group">
                 {state.primaryLogo ? (
                   <div className="relative">
-                    <img src={state.primaryLogo} alt="Logo" className="max-h-24 mx-auto object-contain" />
+                    <img src={state.primaryLogo} alt="Logo" className="max-h-32 mx-auto object-contain mix-blend-multiply" />
                     <button 
                       onClick={(e) => { e.preventDefault(); updateField('primaryLogo', ''); }}
-                      className="absolute -top-2 -right-2 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-sm"
+                      className="absolute -top-4 -right-4 bg-black text-white p-2 hover:bg-red-500 transition-colors"
                     >
-                      <Trash2 size={12} />
+                      <Trash2 size={16} />
                     </button>
                   </div>
                 ) : (
-                  <div className="space-y-2">
-                    <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm border border-slate-100">
-                      <ImageIcon className="text-slate-400" size={16} />
-                    </div>
+                  <div className="space-y-3">
+                    <ImageIcon className="mx-auto" size={32} strokeWidth={1} />
                     <div>
-                      <p className="text-xs font-bold text-slate-700">Upload Logo</p>
-                      <p className="text-[10px] text-slate-400">SVG or transparent PNG</p>
+                      <p className="text-sm font-bold uppercase">Upload SVG</p>
                     </div>
                   </div>
                 )}
@@ -160,40 +152,42 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
         )}
 
         {activeTab === 'aesthetics' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-300">
+          <div className="space-y-10 animate-in fade-in duration-300">
             
             {/* Colors */}
             <div>
-              <Label className="flex items-center gap-2 mb-4">
-                <Palette size={12} /> Brand Colors
-              </Label>
-              <div className="space-y-3">
+              <label className="flex items-center gap-2 mb-6 text-[11px] font-mono font-bold uppercase text-black">
+                <Palette size={14} /> Brand Colors
+              </label>
+              <div className="space-y-4">
                 {state.primaryColors.map((color, i) => (
-                  <div key={`primary-${i}`} className="flex items-center gap-3 p-2 bg-slate-50 border border-slate-200 rounded-lg">
-                    <div className="w-8 h-8 rounded-md overflow-hidden shrink-0 border border-black/10">
+                  <div key={`primary-${i}`} className="flex items-stretch border-2 border-black bg-white group">
+                    <div className="w-16 shrink-0 border-r-2 border-black relative overflow-hidden">
                       <input 
                         type="color" 
                         value={color.hex}
-                        className="w-12 h-12 -mt-2 -ml-2 cursor-pointer"
+                        className="absolute inset-[-10px] w-[50px] h-[50px] cursor-pointer"
                         onChange={(e) => {
                           const newColors = [...state.primaryColors];
-                          newColors[i].hex = e.target.value;
+                          newColors[i].hex = e.target.value.toUpperCase();
                           updateField('primaryColors', newColors);
                         }}
                       />
                     </div>
-                    <div className="flex-1 flex flex-col gap-1">
+                    <div className="flex-1 flex flex-col">
                       <input 
                          value={color.name} 
-                         className="flex-1 text-xs font-bold bg-transparent outline-none"
+                         className="flex-1 px-3 py-2 text-sm font-black uppercase bg-transparent outline-none focus:bg-[#00F5FF]/10 transition-colors"
                          onChange={(e) => {
                            const newColors = [...state.primaryColors];
                            newColors[i].name = e.target.value;
                            updateField('primaryColors', newColors);
                          }}
-                         placeholder="Color Name"
+                         placeholder="NAME"
                       />
-                      <span className="text-[9px] font-mono text-slate-400 uppercase">{color.hex}</span>
+                      <div className="border-t-2 border-black px-3 py-1 bg-slate-100">
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-widest">{color.hex}</span>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -201,34 +195,37 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
             </div>
 
             {/* Typography */}
-            <div className="pt-6 border-t border-slate-100">
-              <Label className="flex items-center gap-2 mb-4">
-                <TypeIcon size={12} /> Typography Preset
-              </Label>
-              <div className="grid grid-cols-1 gap-2">
+            <div className="pt-8 border-t-2 border-black">
+              <label className="flex items-center gap-2 mb-6 text-[11px] font-mono font-bold uppercase text-black">
+                <TypeIcon size={14} /> Typography Engine
+              </label>
+              <div className="grid grid-cols-1 gap-4">
                 {[
-                  { name: 'Modern Tech', head: 'Space Grotesk', body: 'Inter' },
-                  { name: 'Classic Editorial', head: 'Playfair Display', body: 'Lora' },
-                  { name: 'Clean Minimal', head: 'Outfit', body: 'Manrope' },
-                  { name: 'Bold Impact', head: 'Oswald', body: 'Roboto' }
-                ].map(preset => (
-                  <button
-                    key={preset.name}
-                    onClick={() => updateField('typographySettings', { headingFont: preset.head, bodyFont: preset.body })}
-                    className={`p-3 border rounded-xl text-left transition-all ${
-                      state.typographySettings.headingFont === preset.head 
-                        ? 'border-blue-600 bg-blue-50 shadow-[0_0_0_2px_rgba(37,99,235,0.2)]' 
-                        : 'border-slate-200 hover:border-blue-300 hover:bg-slate-50'
-                    }`}
-                  >
-                    <p className="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-1">{preset.name}</p>
-                    <div className="flex items-center gap-2 text-sm text-slate-700">
-                      <span className="font-bold">{preset.head}</span>
-                      <span className="text-slate-300">/</span>
-                      <span>{preset.body}</span>
-                    </div>
-                  </button>
-                ))}
+                  { name: 'Brutalist', head: 'Space Grotesk', body: 'Inter' },
+                  { name: 'Editorial', head: 'Playfair Display', body: 'Lora' },
+                  { name: 'System', head: 'Outfit', body: 'Manrope' }
+                ].map(preset => {
+                  const isActive = state.typographySettings.headingFont === preset.head;
+                  return (
+                    <button
+                      key={preset.name}
+                      onClick={() => updateField('typographySettings', { headingFont: preset.head, bodyFont: preset.body })}
+                      className={`text-left border-2 border-black transition-all ${
+                        isActive 
+                          ? 'bg-black text-white shadow-[4px_4px_0_0_#00F5FF]' 
+                          : 'bg-white text-black hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0_0_#000]'
+                      }`}
+                    >
+                      <div className={`p-4 border-b-2 ${isActive ? 'border-white/20' : 'border-black'}`}>
+                        <p className="text-[10px] font-mono font-bold uppercase tracking-widest">{preset.name}</p>
+                      </div>
+                      <div className="p-4 flex flex-col gap-1">
+                        <span className="font-black text-lg">{preset.head}</span>
+                        <span className="text-xs font-mono opacity-60">BODY: {preset.body}</span>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
@@ -236,14 +233,14 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
         )}
 
         {activeTab === 'export' && (
-          <div className="space-y-6 flex flex-col items-center justify-center h-full animate-in fade-in slide-in-from-right-4 duration-300">
-            <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-2">
-               <Download size={24} />
+          <div className="flex flex-col items-center justify-center h-full animate-in fade-in duration-300 py-12">
+            <div className="w-24 h-24 border-4 border-black bg-[#00F5FF] flex items-center justify-center mb-8 shadow-[8px_8px_0_0_#000]">
+               <Download size={40} className="text-black" />
             </div>
-            <div className="text-center space-y-2">
-              <h3 className="font-black text-lg">Ready to Export</h3>
-              <p className="text-xs text-slate-500 leading-relaxed max-w-[240px] mx-auto">
-                Generate a perfect, vector-grade PDF of your brand book. For best results, enable background graphics and remove margins in the print dialog.
+            <div className="text-center space-y-4 mb-12">
+              <h3 className="font-black text-3xl uppercase tracking-tighter">RENDER</h3>
+              <p className="text-sm text-black font-medium leading-relaxed max-w-[240px] mx-auto border-2 border-black p-4 bg-slate-50">
+                A4 Landscape. Enable background graphics in the print dialog.
               </p>
             </div>
             
@@ -254,9 +251,9 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
                 window.print();
                 updateField('isPrinting', false);
               }}
-              className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-blue-700 transition-all shadow-xl active:scale-[0.98] mt-4"
+              className="w-full bg-black text-white border-2 border-black py-5 font-black text-lg uppercase tracking-widest hover:bg-white hover:text-black transition-all shadow-[6px_6px_0_0_#00F5FF] hover:shadow-[2px_2px_0_0_#00F5FF] hover:translate-x-[4px] hover:translate-y-[4px] active:shadow-none active:translate-x-[6px] active:translate-y-[6px]"
             >
-              Export PDF Now
+              EXECUTE
             </button>
           </div>
         )}
