@@ -5,11 +5,7 @@ import {
   ChevronRight, 
   Download,
   Image as ImageIcon, 
-  Palette, 
-  Type as TypeIcon,
-  Trash2,
-  FileText,
-  Briefcase
+  Trash2
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -19,7 +15,7 @@ interface SidebarProps {
 }
 
 export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
-  const [activeTab, setActiveTab] = useState<'identity' | 'aesthetics' | 'assets' | 'export'>('identity');
+  const [activeTab, setActiveTab] = useState<'identity' | 'assets' | 'aesthetics' | 'export'>('identity');
 
   const updateField = (field: keyof BrandBookState, value: any) => {
     setState(prev => ({ ...prev, [field]: value }));
@@ -36,43 +32,6 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
 
   const nextSlide = () => updateField('currentSlide', Math.min(totalSlides - 1, state.currentSlide + 1));
   const prevSlide = () => updateField('currentSlide', Math.max(0, state.currentSlide - 1));
-
-  const InputGroup = ({ label, children }: { label: string, children: React.ReactNode }) => (
-    <div>
-      <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">{label}</label>
-      {children}
-    </div>
-  );
-
-  const Uploader = ({ field, label }: { field: keyof BrandBookState, label: string }) => (
-    <InputGroup label={label}>
-      <div className="bg-slate-50 border border-slate-100 p-8 text-center hover:bg-slate-100 transition-colors cursor-pointer relative group rounded-sm">
-        {state[field] ? (
-          <div className="relative">
-            <img src={state[field] as string} alt={label} className="max-h-24 mx-auto object-contain mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" />
-            <button 
-              onClick={(e) => { e.preventDefault(); updateField(field, ''); }}
-              className="absolute -top-4 -right-4 text-slate-400 p-2 hover:text-red-500 transition-colors"
-            >
-              <Trash2 size={14} strokeWidth={1.5} />
-            </button>
-          </div>
-        ) : (
-          <div className="space-y-3">
-            <ImageIcon className="mx-auto text-slate-300" size={20} strokeWidth={1} />
-            <p className="text-[9px] font-medium uppercase tracking-widest text-slate-400">Upload Image</p>
-          </div>
-        )}
-        <input 
-          type="file" 
-          accept=".svg,.png,.jpg,.jpeg" 
-          onChange={(e) => handleFileUpload(e, field)}
-          className="absolute inset-0 opacity-0 cursor-pointer"
-          title=""
-        />
-      </div>
-    </InputGroup>
-  );
 
   return (
     <div className="w-[420px] bg-white border-r border-slate-100 flex flex-col h-full overflow-hidden z-10 font-sans">
@@ -112,22 +71,33 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
       <div className="flex-1 overflow-y-auto px-10 py-12 bg-white">
         {activeTab === 'identity' && (
           <div className="space-y-10 animate-in fade-in duration-500">
-            <InputGroup label="Brand Name">
+            <div>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Brand Name</label>
               <input type="text" value={state.brandName} onChange={(e) => updateField('brandName', e.target.value)} className="w-full bg-transparent border-b border-slate-200 pb-2 text-lg font-light text-slate-900 focus:outline-none focus:border-slate-900 transition-colors rounded-none placeholder:text-slate-300" />
-            </InputGroup>
-            <InputGroup label="Tagline">
+            </div>
+
+            <div>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Tagline</label>
               <input type="text" value={state.tagline} onChange={(e) => updateField('tagline', e.target.value)} className="w-full bg-transparent border-b border-slate-200 pb-2 text-sm font-light text-slate-600 focus:outline-none focus:border-slate-900 transition-colors rounded-none placeholder:text-slate-300" />
-            </InputGroup>
-            <InputGroup label="Core Message">
+            </div>
+
+            <div>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Core Message</label>
               <textarea value={state.introduction} onChange={(e) => updateField('introduction', e.target.value)} className="w-full bg-slate-50 border border-slate-100 p-4 text-sm font-light text-slate-600 focus:outline-none focus:bg-slate-100 transition-colors min-h-[100px] resize-none rounded-sm" />
-            </InputGroup>
-            <InputGroup label="Vision Statement">
+            </div>
+
+            <div>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Vision Statement</label>
               <textarea value={state.vision} onChange={(e) => updateField('vision', e.target.value)} className="w-full bg-slate-50 border border-slate-100 p-4 text-sm font-light text-slate-600 focus:outline-none focus:bg-slate-100 transition-colors min-h-[100px] resize-none rounded-sm" />
-            </InputGroup>
-            <InputGroup label="Tone of Voice">
+            </div>
+
+            <div>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Tone of Voice</label>
               <input type="text" value={state.toneOfVoice} onChange={(e) => updateField('toneOfVoice', e.target.value)} className="w-full bg-transparent border-b border-slate-200 pb-2 text-sm font-light text-slate-600 focus:outline-none focus:border-slate-900 transition-colors rounded-none placeholder:text-slate-300" />
-            </InputGroup>
-            <InputGroup label="Core Values (Max 3)">
+            </div>
+
+            <div>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Core Values (Max 3)</label>
               <div className="space-y-3">
                 {[0, 1, 2].map((i) => (
                   <input key={i} type="text" value={state.coreValues[i]} onChange={(e) => {
@@ -137,24 +107,130 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
                   }} className="w-full bg-slate-50 border border-slate-100 p-3 text-xs font-light text-slate-600 focus:outline-none focus:bg-slate-100 transition-colors rounded-sm" placeholder={`Value 0${i+1}`} />
                 ))}
               </div>
-            </InputGroup>
+            </div>
           </div>
         )}
 
         {activeTab === 'assets' && (
           <div className="space-y-12 animate-in fade-in duration-500">
-             <Uploader field="primaryLogo" label="Primary Mark" />
-             <Uploader field="secondaryLogo" label="Secondary / Alternate Mark" />
-             <InputGroup label="Photography Style">
+             
+             {/* Primary Logo */}
+             <div>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Primary Mark</label>
+              <div className="bg-slate-50 border border-slate-100 p-8 text-center hover:bg-slate-100 transition-colors cursor-pointer relative group rounded-sm">
+                {state.primaryLogo ? (
+                  <div className="relative">
+                    <img src={state.primaryLogo} alt="Primary Mark" className="max-h-24 mx-auto object-contain mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" />
+                    <button onClick={(e) => { e.preventDefault(); updateField('primaryLogo', ''); }} className="absolute -top-4 -right-4 text-slate-400 p-2 hover:text-red-500 transition-colors">
+                      <Trash2 size={14} strokeWidth={1.5} />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    <ImageIcon className="mx-auto text-slate-300" size={20} strokeWidth={1} />
+                    <p className="text-[9px] font-medium uppercase tracking-widest text-slate-400">Upload Image</p>
+                  </div>
+                )}
+                <input type="file" accept=".svg,.png,.jpg,.jpeg" onChange={(e) => handleFileUpload(e, 'primaryLogo')} className="absolute inset-0 opacity-0 cursor-pointer" title="" />
+              </div>
+             </div>
+
+             {/* Secondary Logo */}
+             <div>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Secondary / Alternate Mark</label>
+              <div className="bg-slate-50 border border-slate-100 p-8 text-center hover:bg-slate-100 transition-colors cursor-pointer relative group rounded-sm">
+                {state.secondaryLogo ? (
+                  <div className="relative">
+                    <img src={state.secondaryLogo} alt="Secondary Mark" className="max-h-24 mx-auto object-contain mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" />
+                    <button onClick={(e) => { e.preventDefault(); updateField('secondaryLogo', ''); }} className="absolute -top-4 -right-4 text-slate-400 p-2 hover:text-red-500 transition-colors">
+                      <Trash2 size={14} strokeWidth={1.5} />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    <ImageIcon className="mx-auto text-slate-300" size={20} strokeWidth={1} />
+                    <p className="text-[9px] font-medium uppercase tracking-widest text-slate-400">Upload Image</p>
+                  </div>
+                )}
+                <input type="file" accept=".svg,.png,.jpg,.jpeg" onChange={(e) => handleFileUpload(e, 'secondaryLogo')} className="absolute inset-0 opacity-0 cursor-pointer" title="" />
+              </div>
+             </div>
+
+             <div>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Photography Style</label>
               <textarea value={state.photographyStyle} onChange={(e) => updateField('photographyStyle', e.target.value)} className="w-full bg-slate-50 border border-slate-100 p-4 text-sm font-light text-slate-600 focus:outline-none focus:bg-slate-100 transition-colors min-h-[100px] resize-none rounded-sm" placeholder="Describe the art direction..." />
-            </InputGroup>
-             <Uploader field="mockupImage" label="Application Mockup" />
+             </div>
+
+             {/* Mockup 1 */}
+             <div>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Application Mockup 01</label>
+              <div className="bg-slate-50 border border-slate-100 p-8 text-center hover:bg-slate-100 transition-colors cursor-pointer relative group rounded-sm">
+                {state.mockupImage ? (
+                  <div className="relative">
+                    <img src={state.mockupImage} alt="Mockup" className="max-h-24 mx-auto object-contain mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" />
+                    <button onClick={(e) => { e.preventDefault(); updateField('mockupImage', ''); }} className="absolute -top-4 -right-4 text-slate-400 p-2 hover:text-red-500 transition-colors">
+                      <Trash2 size={14} strokeWidth={1.5} />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    <ImageIcon className="mx-auto text-slate-300" size={20} strokeWidth={1} />
+                    <p className="text-[9px] font-medium uppercase tracking-widest text-slate-400">Upload Image</p>
+                  </div>
+                )}
+                <input type="file" accept=".svg,.png,.jpg,.jpeg" onChange={(e) => handleFileUpload(e, 'mockupImage')} className="absolute inset-0 opacity-0 cursor-pointer" title="" />
+              </div>
+             </div>
+
+             {/* Mockup 2 */}
+             <div>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Application Mockup 02</label>
+              <div className="bg-slate-50 border border-slate-100 p-8 text-center hover:bg-slate-100 transition-colors cursor-pointer relative group rounded-sm">
+                {state.mockupImage2 ? (
+                  <div className="relative">
+                    <img src={state.mockupImage2} alt="Mockup 2" className="max-h-24 mx-auto object-contain mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" />
+                    <button onClick={(e) => { e.preventDefault(); updateField('mockupImage2', ''); }} className="absolute -top-4 -right-4 text-slate-400 p-2 hover:text-red-500 transition-colors">
+                      <Trash2 size={14} strokeWidth={1.5} />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    <ImageIcon className="mx-auto text-slate-300" size={20} strokeWidth={1} />
+                    <p className="text-[9px] font-medium uppercase tracking-widest text-slate-400">Upload Image</p>
+                  </div>
+                )}
+                <input type="file" accept=".svg,.png,.jpg,.jpeg" onChange={(e) => handleFileUpload(e, 'mockupImage2')} className="absolute inset-0 opacity-0 cursor-pointer" title="" />
+              </div>
+             </div>
+
+             {/* Mockup 3 */}
+             <div>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Application Mockup 03</label>
+              <div className="bg-slate-50 border border-slate-100 p-8 text-center hover:bg-slate-100 transition-colors cursor-pointer relative group rounded-sm">
+                {state.mockupImage3 ? (
+                  <div className="relative">
+                    <img src={state.mockupImage3} alt="Mockup 3" className="max-h-24 mx-auto object-contain mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" />
+                    <button onClick={(e) => { e.preventDefault(); updateField('mockupImage3', ''); }} className="absolute -top-4 -right-4 text-slate-400 p-2 hover:text-red-500 transition-colors">
+                      <Trash2 size={14} strokeWidth={1.5} />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    <ImageIcon className="mx-auto text-slate-300" size={20} strokeWidth={1} />
+                    <p className="text-[9px] font-medium uppercase tracking-widest text-slate-400">Upload Image</p>
+                  </div>
+                )}
+                <input type="file" accept=".svg,.png,.jpg,.jpeg" onChange={(e) => handleFileUpload(e, 'mockupImage3')} className="absolute inset-0 opacity-0 cursor-pointer" title="" />
+              </div>
+             </div>
+
           </div>
         )}
 
         {activeTab === 'aesthetics' && (
           <div className="space-y-12 animate-in fade-in duration-500">
-            <InputGroup label="Color Palette">
+            <div>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Color Palette</label>
               <div className="space-y-6">
                 {state.primaryColors.map((color, i) => (
                   <div key={`primary-${i}`} className="flex items-center gap-6 group">
@@ -176,30 +252,29 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
                   </div>
                 ))}
               </div>
-            </InputGroup>
+            </div>
 
             <div className="pt-8 border-t border-slate-100">
-              <InputGroup label="Typography">
-                <div className="grid grid-cols-1 gap-2">
-                  {[
-                    { name: 'Modern Sans', head: 'Inter', body: 'Inter' },
-                    { name: 'Elegant Serif', head: 'Playfair Display', body: 'Lora' },
-                    { name: 'Geometric', head: 'Space Grotesk', body: 'Outfit' }
-                  ].map(preset => {
-                    const isActive = state.typographySettings.headingFont === preset.head && state.typographySettings.bodyFont === preset.body;
-                    return (
-                      <button key={preset.name} onClick={() => updateField('typographySettings', { headingFont: preset.head, bodyFont: preset.body })}
-                        className={`text-left transition-all p-5 rounded-md ${isActive ? 'bg-slate-50 ring-1 ring-slate-200' : 'bg-transparent hover:bg-slate-50'}`}>
-                        <p className="text-[9px] font-medium uppercase tracking-widest text-slate-400 mb-3">{preset.name}</p>
-                        <div className="flex flex-col gap-1">
-                          <span className="font-light text-lg text-slate-900">{preset.head}</span>
-                          <span className="text-[11px] text-slate-500 font-light">{preset.body}</span>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-              </InputGroup>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Typography</label>
+              <div className="grid grid-cols-1 gap-2">
+                {[
+                  { name: 'Modern Sans', head: 'Inter', body: 'Inter' },
+                  { name: 'Elegant Serif', head: 'Playfair Display', body: 'Lora' },
+                  { name: 'Geometric', head: 'Space Grotesk', body: 'Outfit' }
+                ].map(preset => {
+                  const isActive = state.typographySettings.headingFont === preset.head && state.typographySettings.bodyFont === preset.body;
+                  return (
+                    <button key={preset.name} onClick={() => updateField('typographySettings', { headingFont: preset.head, bodyFont: preset.body })}
+                      className={`text-left transition-all p-5 rounded-md ${isActive ? 'bg-slate-50 ring-1 ring-slate-200' : 'bg-transparent hover:bg-slate-50'}`}>
+                      <p className="text-[9px] font-medium uppercase tracking-widest text-slate-400 mb-3">{preset.name}</p>
+                      <div className="flex flex-col gap-1">
+                        <span className="font-light text-lg text-slate-900">{preset.head}</span>
+                        <span className="text-[11px] text-slate-500 font-light">{preset.body}</span>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         )}

@@ -26,6 +26,8 @@ export interface BrandBookState {
   primaryLogo: string;
   secondaryLogo: string;
   mockupImage: string;
+  mockupImage2: string;
+  mockupImage3: string;
   photographyStyle: string;
   
   // Aesthetics
@@ -57,6 +59,8 @@ export const INITIAL_STATE: BrandBookState = {
   primaryLogo: '', 
   secondaryLogo: '',
   mockupImage: '',
+  mockupImage2: '',
+  mockupImage3: '',
   photographyStyle: 'Clean, high-contrast structural compositions with an emphasis on geometric shadows and stark, minimalist environments.',
   
   primaryColors: [

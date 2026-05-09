@@ -7,7 +7,7 @@ import { AnimatePresence } from 'motion/react';
 export default function App() {
   const [state, setState] = useState<BrandBookState>(INITIAL_STATE);
 
-  const TOTAL_SLIDES = 15;
+  const TOTAL_SLIDES = 19;
   const PROGRESS_DOTS = Array.from({ length: TOTAL_SLIDES });
 
   // Update Google Fonts and CSS Variables
