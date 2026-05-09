@@ -192,6 +192,48 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
               </div>
              </div>
 
+             {/* Logomark */}
+             <div>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Logomark (Icon)</label>
+              <div className="bg-slate-50 border border-slate-100 p-8 text-center hover:bg-slate-100 transition-colors cursor-pointer relative group rounded-sm">
+                {state.logomark ? (
+                  <div className="relative">
+                    <img src={state.logomark} alt="Logomark" className="h-12 mx-auto object-contain mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" />
+                    <button onClick={(e) => { e.preventDefault(); updateField('logomark', ''); }} className="absolute -top-4 -right-4 text-slate-400 p-2 hover:text-red-500 transition-colors">
+                      <Trash2 size={14} strokeWidth={1.5} />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    <ImageIcon className="mx-auto text-slate-300" size={20} strokeWidth={1} />
+                    <p className="text-[9px] font-medium uppercase tracking-widest text-slate-400">Upload Icon</p>
+                  </div>
+                )}
+                <input type="file" accept=".svg,.png,.jpg,.jpeg" onChange={(e) => handleFileUpload(e, 'logomark')} className="absolute inset-0 opacity-0 cursor-pointer" title="" />
+              </div>
+             </div>
+
+             {/* Wordmark */}
+             <div>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Wordmark</label>
+              <div className="bg-slate-50 border border-slate-100 p-8 text-center hover:bg-slate-100 transition-colors cursor-pointer relative group rounded-sm">
+                {state.wordmark ? (
+                  <div className="relative">
+                    <img src={state.wordmark} alt="Wordmark" className="h-12 mx-auto object-contain mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" />
+                    <button onClick={(e) => { e.preventDefault(); updateField('wordmark', ''); }} className="absolute -top-4 -right-4 text-slate-400 p-2 hover:text-red-500 transition-colors">
+                      <Trash2 size={14} strokeWidth={1.5} />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    <ImageIcon className="mx-auto text-slate-300" size={20} strokeWidth={1} />
+                    <p className="text-[9px] font-medium uppercase tracking-widest text-slate-400">Upload Type</p>
+                  </div>
+                )}
+                <input type="file" accept=".svg,.png,.jpg,.jpeg" onChange={(e) => handleFileUpload(e, 'wordmark')} className="absolute inset-0 opacity-0 cursor-pointer" title="" />
+              </div>
+             </div>
+
              <div>
               <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Photography Style</label>
               <textarea value={state.photographyStyle} onChange={(e) => updateField('photographyStyle', e.target.value)} className="w-full bg-slate-50 border border-slate-100 p-4 text-sm font-light text-slate-600 focus:outline-none focus:bg-slate-100 transition-colors min-h-[100px] resize-none rounded-sm" placeholder="Describe the art direction..." />
