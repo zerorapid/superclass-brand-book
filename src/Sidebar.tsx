@@ -92,6 +92,16 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
             </div>
 
             <div>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Elevator Pitch (Positioning)</label>
+              <textarea value={state.positioning} onChange={(e) => updateField('positioning', e.target.value)} className="w-full bg-slate-50 border border-slate-100 p-4 text-sm font-light text-slate-600 focus:outline-none focus:bg-slate-100 transition-colors min-h-[100px] resize-none rounded-sm" />
+            </div>
+
+            <div>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Target Audience</label>
+              <textarea value={state.audience} onChange={(e) => updateField('audience', e.target.value)} className="w-full bg-slate-50 border border-slate-100 p-4 text-sm font-light text-slate-600 focus:outline-none focus:bg-slate-100 transition-colors min-h-[100px] resize-none rounded-sm" />
+            </div>
+
+            <div>
               <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Tone of Voice</label>
               <input type="text" value={state.toneOfVoice} onChange={(e) => updateField('toneOfVoice', e.target.value)} className="w-full bg-transparent border-b border-slate-200 pb-2 text-sm font-light text-slate-600 focus:outline-none focus:border-slate-900 transition-colors rounded-none placeholder:text-slate-300" />
             </div>
@@ -185,6 +195,17 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
              <div>
               <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Photography Style</label>
               <textarea value={state.photographyStyle} onChange={(e) => updateField('photographyStyle', e.target.value)} className="w-full bg-slate-50 border border-slate-100 p-4 text-sm font-light text-slate-600 focus:outline-none focus:bg-slate-100 transition-colors min-h-[100px] resize-none rounded-sm" placeholder="Describe the art direction..." />
+             </div>
+
+             <div className="flex gap-4">
+               <div className="flex-1">
+                 <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Min Size (Digital)</label>
+                 <input type="text" value={state.logoMinSizeDigital} onChange={(e) => updateField('logoMinSizeDigital', e.target.value)} className="w-full bg-slate-50 border border-slate-100 p-3 text-sm font-light text-slate-600 focus:outline-none focus:bg-slate-100 transition-colors rounded-sm" placeholder="e.g. 32px" />
+               </div>
+               <div className="flex-1">
+                 <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Min Size (Print)</label>
+                 <input type="text" value={state.logoMinSizePrint} onChange={(e) => updateField('logoMinSizePrint', e.target.value)} className="w-full bg-slate-50 border border-slate-100 p-3 text-sm font-light text-slate-600 focus:outline-none focus:bg-slate-100 transition-colors rounded-sm" placeholder="e.g. 15mm" />
+               </div>
              </div>
 
              {/* Pattern */}
@@ -355,8 +376,17 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
                 window.print();
                 updateField('isPrinting', false);
               }}
-              className="w-full bg-slate-900 text-white rounded-md py-4 font-medium text-[11px] uppercase tracking-widest hover:bg-slate-800 transition-all shadow-md active:scale-[0.98]">
+              className="w-full bg-slate-900 text-white rounded-md py-4 font-medium text-[11px] uppercase tracking-widest hover:bg-slate-800 transition-all shadow-md active:scale-[0.98] mb-4">
               Export Document
+            </button>
+            <button onClick={() => {
+                if (confirm('Are you sure you want to clear all data and start over?')) {
+                  // Hacky but clean way to reset state completely back to INITIAL_STATE without passing INITIAL_STATE explicitly
+                  window.location.reload();
+                }
+              }}
+              className="w-full bg-transparent text-slate-400 border border-slate-200 rounded-md py-4 font-medium text-[11px] uppercase tracking-widest hover:bg-red-50 hover:text-red-500 hover:border-red-100 transition-all active:scale-[0.98]">
+              Reset to Defaults
             </button>
           </div>
         )}

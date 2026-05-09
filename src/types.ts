@@ -23,12 +23,16 @@ export interface BrandBookState {
   toneOfVoice: string;
   
   // Strategy & Rules
+  audience: string;
+  positioning: string;
   dos: [string, string, string];
   donts: [string, string, string];
 
   // Marks & Assets
   primaryLogo: string;
   secondaryLogo: string;
+  logoMinSizeDigital: string;
+  logoMinSizePrint: string;
   brandPattern: string;
   mockupStationery: string;
   mockupSocial: string;
@@ -61,11 +65,16 @@ export const INITIAL_STATE: BrandBookState = {
   coreValues: ['Radical Simplicity', 'Unyielding Precision', 'Velocity'],
   toneOfVoice: 'Authoritative, precise, and understated. We speak with the quiet confidence of superior engineering.',
   
+  audience: 'Forward-thinking digital agencies, SaaS founders, and premium design studios who demand pixel-perfect execution.',
+  positioning: 'We are the invisible engine behind the world\'s most precise brands. While others focus on decoration, we focus on structural perfection.',
+  
   dos: ['Maintain consistent clear space', 'Use high-contrast combinations', 'Keep layouts minimal and structural'],
   donts: ['Do not use unapproved colors', 'Do not alter the logo proportions', 'Avoid visually cluttered photography'],
 
   primaryLogo: '', 
   secondaryLogo: '',
+  logoMinSizeDigital: '32px',
+  logoMinSizePrint: '15mm',
   brandPattern: '',
   mockupStationery: '',
   mockupSocial: '',
