@@ -50,6 +50,7 @@ export interface BrandBookState {
   isExporting?: boolean;
   isPrinting?: boolean;
   currentSlide: number;
+  showGridOverlay?: boolean;
 }
 
 export const INITIAL_STATE: BrandBookState = {

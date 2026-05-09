@@ -364,12 +364,23 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
             <div className="w-16 h-16 rounded-full bg-slate-50 flex items-center justify-center mb-8 ring-1 ring-slate-100">
                <Download size={20} className="text-slate-400" strokeWidth={1.5} />
             </div>
-            <div className="text-center space-y-4 mb-12">
+            <div className="text-center space-y-4 mb-8">
               <h3 className="font-light text-2xl text-slate-900">Finalize</h3>
               <p className="text-xs text-slate-500 font-light leading-relaxed max-w-[240px] mx-auto">
                 Generate a minimal, vector-grade PDF. Enable background graphics in the print dialog.
               </p>
             </div>
+            
+            <div className="w-full flex items-center justify-between p-4 bg-slate-50 border border-slate-100 rounded-md mb-12">
+              <span className="text-xs font-medium text-slate-700 tracking-wide">Show Structural Grid</span>
+              <button 
+                onClick={() => updateField('showGridOverlay', !state.showGridOverlay)}
+                className={`w-10 h-5 rounded-full transition-colors relative ${state.showGridOverlay ? 'bg-slate-900' : 'bg-slate-200'}`}
+              >
+                <div className={`w-3 h-3 rounded-full bg-white absolute top-1 transition-all ${state.showGridOverlay ? 'left-6' : 'left-1'}`} />
+              </button>
+            </div>
+
             <button onClick={async () => {
                 updateField('isPrinting', true);
                 await new Promise(r => setTimeout(r, 1000));

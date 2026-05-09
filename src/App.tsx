@@ -96,6 +96,21 @@ export default function App() {
               <AnimatePresence mode="wait">
                 <SlideRenderer key={state.currentSlide} state={state} index={state.currentSlide} />
               </AnimatePresence>
+
+              {/* Structural Grid Overlay */}
+              {state.showGridOverlay && (
+                <div className="absolute inset-0 z-50 pointer-events-none p-16 md:p-24">
+                  {/* Baseline Grid */}
+                  <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(to bottom, rgba(59, 130, 246, 0.15) 1px, transparent 1px)', backgroundSize: '100% 32px' }}></div>
+                  
+                  {/* 12-Column Grid */}
+                  <div className="w-full h-full grid grid-cols-12 gap-8 opacity-10 relative z-10">
+                    {Array.from({ length: 12 }).map((_, i) => (
+                      <div key={i} className="bg-blue-600 h-full w-full mix-blend-multiply" />
+                    ))}
+                  </div>
+                </div>
+              )}
               
               <button 
                 onClick={() => state.currentSlide > 0 && setState(prev => ({ ...prev, currentSlide: prev.currentSlide - 1 }))}
