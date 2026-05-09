@@ -350,22 +350,28 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
     case 15: // Improper Usage
       return (
         <PageWrapper section="Prohibited" number="16">
-          <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-16">Improper Usage</h2>
-          <div className="grid grid-cols-3 gap-12">
-            {[
-              { label: 'Do not stretch', p: 'scale-x-150' },
-              { label: 'Do not recolor', p: 'sepia opacity-50' },
-              { label: 'Do not rotate', p: 'rotate-12' },
-            ].map((v, i) => (
-              <div key={i} className="space-y-6">
-                <div className="bg-slate-50 aspect-square flex items-center justify-center p-4">
-                  <div className={`w-16 h-16 flex items-center justify-center ${v.p}`}>
-                      <SampleLogo className="w-12 h-12" />
+          <div className="w-full h-full flex flex-col">
+            <h2 className="text-xs uppercase tracking-widest text-slate-400 font-bold mb-12">Improper Usage</h2>
+            <div className="flex-1 grid grid-cols-3 grid-rows-2 gap-x-12 gap-y-8 min-h-0">
+              {[
+                { label: 'Do not stretch horizontally', p: 'scale-x-[1.8]' },
+                { label: 'Do not recolor', p: 'sepia opacity-50' },
+                { label: 'Do not rotate', p: 'rotate-12' },
+                { label: 'Do not add drop shadows', p: 'drop-shadow-2xl' },
+                { label: 'Do not stretch vertically', p: 'scale-y-50' },
+                { label: 'Do not blur or add effects', p: 'blur-[2px]' },
+              ].map((v, i) => (
+                <div key={i} className="space-y-4 flex flex-col h-full">
+                  <div className="flex-1 bg-slate-50 border border-slate-100 flex items-center justify-center p-4 overflow-hidden relative">
+                    <div className="absolute inset-0 border border-red-500/10 pointer-events-none" />
+                    <div className={`w-16 h-16 flex items-center justify-center transition-all ${v.p}`}>
+                        <SampleLogo className="w-12 h-12" />
+                    </div>
                   </div>
+                  <p className="text-[9px] uppercase tracking-widest font-medium text-red-500">{v.label}</p>
                 </div>
-                <p className="text-[10px] uppercase tracking-widest font-medium text-red-400">{v.label}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </PageWrapper>
       );
@@ -510,13 +516,15 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
     case 22: // Brand Pattern
       return (
         <PageWrapper section="Graphic Elements" number="23">
-          <div className="w-full h-full flex flex-col justify-center">
-             <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-8">Brand Pattern</h2>
-             <div className="flex-1 bg-slate-50 border border-slate-100 flex items-center justify-center overflow-hidden">
+          <div className="w-full h-full flex flex-col">
+             <h2 className="text-xs uppercase tracking-widest text-slate-400 font-bold mb-8">Brand Pattern</h2>
+             <div className="flex-1 bg-slate-50 border border-slate-100 flex items-center justify-center overflow-hidden min-h-0">
                 {state.brandPattern ? (
-                  <img src={state.brandPattern} className="w-full h-full object-cover opacity-80 mix-blend-multiply" alt="Brand Pattern" />
+                  <div className="w-full h-full mix-blend-multiply opacity-80" style={{ backgroundImage: `url(${state.brandPattern})`, backgroundSize: '150px' }} />
                 ) : (
-                  <p className="text-xs text-slate-400 uppercase tracking-widest font-medium">No Pattern Provided</p>
+                  <div className="w-full h-full flex items-center justify-center">
+                     <span className="text-[10px] text-slate-300 uppercase tracking-widest font-medium">No Pattern Provided</span>
+                  </div>
                 )}
              </div>
           </div>
