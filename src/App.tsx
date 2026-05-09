@@ -112,16 +112,6 @@ export default function App() {
            </div>
         </footer>
       </main>
-
-      <div className="print-only">
-        <div id="print-full-book">
-          {PROGRESS_DOTS.map((_, i) => (
-            <div key={i} className="slide-container w-[100vw] h-[100vh]">
-              <SlideRenderer state={state} index={i} />
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }
