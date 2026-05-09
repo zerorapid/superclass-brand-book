@@ -100,11 +100,37 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
               <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Core Values (Max 3)</label>
               <div className="space-y-3">
                 {[0, 1, 2].map((i) => (
-                  <input key={i} type="text" value={state.coreValues[i]} onChange={(e) => {
-                    const newValues = [...state.coreValues];
+                  <input key={`value-${i}`} type="text" value={state.coreValues[i]} onChange={(e) => {
+                    const newValues = [...state.coreValues] as [string, string, string];
                     newValues[i] = e.target.value;
                     updateField('coreValues', newValues);
                   }} className="w-full bg-slate-50 border border-slate-100 p-3 text-xs font-light text-slate-600 focus:outline-none focus:bg-slate-100 transition-colors rounded-sm" placeholder={`Value 0${i+1}`} />
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Do's</label>
+              <div className="space-y-3">
+                {[0, 1, 2].map((i) => (
+                  <input key={`do-${i}`} type="text" value={state.dos[i]} onChange={(e) => {
+                    const newValues = [...state.dos] as [string, string, string];
+                    newValues[i] = e.target.value;
+                    updateField('dos', newValues);
+                  }} className="w-full bg-slate-50 border border-slate-100 p-3 text-xs font-light text-slate-600 focus:outline-none focus:bg-slate-100 transition-colors rounded-sm" placeholder={`Rule 0${i+1}`} />
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Don'ts</label>
+              <div className="space-y-3">
+                {[0, 1, 2].map((i) => (
+                  <input key={`dont-${i}`} type="text" value={state.donts[i]} onChange={(e) => {
+                    const newValues = [...state.donts] as [string, string, string];
+                    newValues[i] = e.target.value;
+                    updateField('donts', newValues);
+                  }} className="w-full bg-slate-50 border border-slate-100 p-3 text-xs font-light text-slate-600 focus:outline-none focus:bg-slate-100 transition-colors rounded-sm" placeholder={`Rule 0${i+1}`} />
                 ))}
               </div>
             </div>
@@ -161,14 +187,14 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
               <textarea value={state.photographyStyle} onChange={(e) => updateField('photographyStyle', e.target.value)} className="w-full bg-slate-50 border border-slate-100 p-4 text-sm font-light text-slate-600 focus:outline-none focus:bg-slate-100 transition-colors min-h-[100px] resize-none rounded-sm" placeholder="Describe the art direction..." />
              </div>
 
-             {/* Mockup 1 */}
+             {/* Pattern */}
              <div>
-              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Application Mockup 01</label>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Brand Pattern / Texture</label>
               <div className="bg-slate-50 border border-slate-100 p-8 text-center hover:bg-slate-100 transition-colors cursor-pointer relative group rounded-sm">
-                {state.mockupImage ? (
+                {state.brandPattern ? (
                   <div className="relative">
-                    <img src={state.mockupImage} alt="Mockup" className="max-h-24 mx-auto object-contain mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" />
-                    <button onClick={(e) => { e.preventDefault(); updateField('mockupImage', ''); }} className="absolute -top-4 -right-4 text-slate-400 p-2 hover:text-red-500 transition-colors">
+                    <img src={state.brandPattern} alt="Pattern" className="max-h-24 mx-auto object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+                    <button onClick={(e) => { e.preventDefault(); updateField('brandPattern', ''); }} className="absolute -top-4 -right-4 text-slate-400 p-2 hover:text-red-500 transition-colors">
                       <Trash2 size={14} strokeWidth={1.5} />
                     </button>
                   </div>
@@ -178,18 +204,18 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
                     <p className="text-[9px] font-medium uppercase tracking-widest text-slate-400">Upload Image</p>
                   </div>
                 )}
-                <input type="file" accept=".svg,.png,.jpg,.jpeg" onChange={(e) => handleFileUpload(e, 'mockupImage')} className="absolute inset-0 opacity-0 cursor-pointer" title="" />
+                <input type="file" accept=".svg,.png,.jpg,.jpeg" onChange={(e) => handleFileUpload(e, 'brandPattern')} className="absolute inset-0 opacity-0 cursor-pointer" title="" />
               </div>
              </div>
 
-             {/* Mockup 2 */}
+             {/* Stationery Mockup */}
              <div>
-              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Application Mockup 02</label>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Stationery Mockup</label>
               <div className="bg-slate-50 border border-slate-100 p-8 text-center hover:bg-slate-100 transition-colors cursor-pointer relative group rounded-sm">
-                {state.mockupImage2 ? (
+                {state.mockupStationery ? (
                   <div className="relative">
-                    <img src={state.mockupImage2} alt="Mockup 2" className="max-h-24 mx-auto object-contain mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" />
-                    <button onClick={(e) => { e.preventDefault(); updateField('mockupImage2', ''); }} className="absolute -top-4 -right-4 text-slate-400 p-2 hover:text-red-500 transition-colors">
+                    <img src={state.mockupStationery} alt="Stationery Mockup" className="max-h-24 mx-auto object-contain mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" />
+                    <button onClick={(e) => { e.preventDefault(); updateField('mockupStationery', ''); }} className="absolute -top-4 -right-4 text-slate-400 p-2 hover:text-red-500 transition-colors">
                       <Trash2 size={14} strokeWidth={1.5} />
                     </button>
                   </div>
@@ -199,18 +225,18 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
                     <p className="text-[9px] font-medium uppercase tracking-widest text-slate-400">Upload Image</p>
                   </div>
                 )}
-                <input type="file" accept=".svg,.png,.jpg,.jpeg" onChange={(e) => handleFileUpload(e, 'mockupImage2')} className="absolute inset-0 opacity-0 cursor-pointer" title="" />
+                <input type="file" accept=".svg,.png,.jpg,.jpeg" onChange={(e) => handleFileUpload(e, 'mockupStationery')} className="absolute inset-0 opacity-0 cursor-pointer" title="" />
               </div>
              </div>
 
-             {/* Mockup 3 */}
+             {/* Social Mockup */}
              <div>
-              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Application Mockup 03</label>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Social Media Mockup</label>
               <div className="bg-slate-50 border border-slate-100 p-8 text-center hover:bg-slate-100 transition-colors cursor-pointer relative group rounded-sm">
-                {state.mockupImage3 ? (
+                {state.mockupSocial ? (
                   <div className="relative">
-                    <img src={state.mockupImage3} alt="Mockup 3" className="max-h-24 mx-auto object-contain mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" />
-                    <button onClick={(e) => { e.preventDefault(); updateField('mockupImage3', ''); }} className="absolute -top-4 -right-4 text-slate-400 p-2 hover:text-red-500 transition-colors">
+                    <img src={state.mockupSocial} alt="Social Media Mockup" className="max-h-24 mx-auto object-contain mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" />
+                    <button onClick={(e) => { e.preventDefault(); updateField('mockupSocial', ''); }} className="absolute -top-4 -right-4 text-slate-400 p-2 hover:text-red-500 transition-colors">
                       <Trash2 size={14} strokeWidth={1.5} />
                     </button>
                   </div>
@@ -220,7 +246,28 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
                     <p className="text-[9px] font-medium uppercase tracking-widest text-slate-400">Upload Image</p>
                   </div>
                 )}
-                <input type="file" accept=".svg,.png,.jpg,.jpeg" onChange={(e) => handleFileUpload(e, 'mockupImage3')} className="absolute inset-0 opacity-0 cursor-pointer" title="" />
+                <input type="file" accept=".svg,.png,.jpg,.jpeg" onChange={(e) => handleFileUpload(e, 'mockupSocial')} className="absolute inset-0 opacity-0 cursor-pointer" title="" />
+              </div>
+             </div>
+
+             {/* Marketing Mockup */}
+             <div>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Marketing Mockup</label>
+              <div className="bg-slate-50 border border-slate-100 p-8 text-center hover:bg-slate-100 transition-colors cursor-pointer relative group rounded-sm">
+                {state.mockupMarketing ? (
+                  <div className="relative">
+                    <img src={state.mockupMarketing} alt="Marketing Mockup" className="max-h-24 mx-auto object-contain mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" />
+                    <button onClick={(e) => { e.preventDefault(); updateField('mockupMarketing', ''); }} className="absolute -top-4 -right-4 text-slate-400 p-2 hover:text-red-500 transition-colors">
+                      <Trash2 size={14} strokeWidth={1.5} />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    <ImageIcon className="mx-auto text-slate-300" size={20} strokeWidth={1} />
+                    <p className="text-[9px] font-medium uppercase tracking-widest text-slate-400">Upload Image</p>
+                  </div>
+                )}
+                <input type="file" accept=".svg,.png,.jpg,.jpeg" onChange={(e) => handleFileUpload(e, 'mockupMarketing')} className="absolute inset-0 opacity-0 cursor-pointer" title="" />
               </div>
              </div>
 
@@ -255,7 +302,19 @@ export const Sidebar = ({ state, setState, totalSlides }: SidebarProps) => {
             </div>
 
             <div className="pt-8 border-t border-slate-100">
-              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Typography</label>
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3">Google Fonts API</label>
+              <div className="space-y-4 mb-6">
+                <div>
+                  <label className="text-xs font-light text-slate-500 mb-1 block">Heading Font Name</label>
+                  <input type="text" value={state.typographySettings.headingFont} onChange={(e) => updateField('typographySettings', { ...state.typographySettings, headingFont: e.target.value })} className="w-full bg-slate-50 border border-slate-100 p-3 text-sm font-light text-slate-900 focus:outline-none focus:bg-slate-100 transition-colors rounded-sm" placeholder="e.g. Inter" />
+                </div>
+                <div>
+                  <label className="text-xs font-light text-slate-500 mb-1 block">Body Font Name</label>
+                  <input type="text" value={state.typographySettings.bodyFont} onChange={(e) => updateField('typographySettings', { ...state.typographySettings, bodyFont: e.target.value })} className="w-full bg-slate-50 border border-slate-100 p-3 text-sm font-light text-slate-900 focus:outline-none focus:bg-slate-100 transition-colors rounded-sm" placeholder="e.g. Roboto" />
+                </div>
+              </div>
+              
+              <label className="block text-[10px] font-medium tracking-widest uppercase text-slate-400 mb-3 mt-8">Quick Presets</label>
               <div className="grid grid-cols-1 gap-2">
                 {[
                   { name: 'Modern Sans', head: 'Inter', body: 'Inter' },

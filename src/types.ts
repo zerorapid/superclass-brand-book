@@ -22,12 +22,17 @@ export interface BrandBookState {
   coreValues: [string, string, string];
   toneOfVoice: string;
   
+  // Strategy & Rules
+  dos: [string, string, string];
+  donts: [string, string, string];
+
   // Marks & Assets
   primaryLogo: string;
   secondaryLogo: string;
-  mockupImage: string;
-  mockupImage2: string;
-  mockupImage3: string;
+  brandPattern: string;
+  mockupStationery: string;
+  mockupSocial: string;
+  mockupMarketing: string;
   photographyStyle: string;
   
   // Aesthetics
@@ -56,11 +61,15 @@ export const INITIAL_STATE: BrandBookState = {
   coreValues: ['Radical Simplicity', 'Unyielding Precision', 'Velocity'],
   toneOfVoice: 'Authoritative, precise, and understated. We speak with the quiet confidence of superior engineering.',
   
+  dos: ['Maintain consistent clear space', 'Use high-contrast combinations', 'Keep layouts minimal and structural'],
+  donts: ['Do not use unapproved colors', 'Do not alter the logo proportions', 'Avoid visually cluttered photography'],
+
   primaryLogo: '', 
   secondaryLogo: '',
-  mockupImage: '',
-  mockupImage2: '',
-  mockupImage3: '',
+  brandPattern: '',
+  mockupStationery: '',
+  mockupSocial: '',
+  mockupMarketing: '',
   photographyStyle: 'Clean, high-contrast structural compositions with an emphasis on geometric shadows and stark, minimalist environments.',
   
   primaryColors: [

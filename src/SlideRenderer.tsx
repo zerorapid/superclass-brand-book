@@ -9,7 +9,9 @@ import {
   Mail,
   Heart,
   Star,
-  Menu
+  Menu,
+  Check,
+  X
 } from 'lucide-react';
 
 interface SlideRendererProps {
@@ -249,9 +251,43 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
         </PageWrapper>
       );
 
-    case 11: // Color Palette
+    case 11: // Do's and Don'ts
       return (
-        <PageWrapper section="Spectrum" number="12">
+        <PageWrapper section="Rules" number="12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-24 h-full items-start pt-12">
+            <div className="space-y-12">
+               <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium">Do's</h2>
+               <div className="space-y-8">
+                 {state.dos.map((rule, i) => (
+                   <div key={i} className="flex gap-4 border-b border-slate-100 pb-8">
+                     <div className="w-6 h-6 rounded-full bg-slate-50 flex items-center justify-center shrink-0">
+                       <Check size={12} className="text-slate-900" />
+                     </div>
+                     <p className="text-lg font-light text-slate-800">{rule}</p>
+                   </div>
+                 ))}
+               </div>
+            </div>
+            <div className="space-y-12">
+               <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium">Don'ts</h2>
+               <div className="space-y-8">
+                 {state.donts.map((rule, i) => (
+                   <div key={i} className="flex gap-4 border-b border-slate-100 pb-8">
+                     <div className="w-6 h-6 rounded-full bg-slate-50 flex items-center justify-center shrink-0">
+                       <X size={12} className="text-slate-400" />
+                     </div>
+                     <p className="text-lg font-light text-slate-500">{rule}</p>
+                   </div>
+                 ))}
+               </div>
+            </div>
+          </div>
+        </PageWrapper>
+      );
+
+    case 12: // Color Palette
+      return (
+        <PageWrapper section="Spectrum" number="13">
           <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-16">Color System</h2>
           <div className="flex h-64 gap-2 mb-8">
             {state.primaryColors.map((color, i) => (
@@ -272,21 +308,21 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
         </PageWrapper>
       );
 
-    case 12: // Typography
+    case 13: // Typography
       return (
-        <PageWrapper section="Type System" number="13">
+        <PageWrapper section="Type System" number="14">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-24 h-full items-center">
             <div className="space-y-6">
               <h3 className="text-[10px] uppercase tracking-widest text-slate-400 font-medium">Primary / Heading</h3>
               <div className="pb-12 border-b border-slate-100">
-                <p className="text-5xl font-heading font-light tracking-tight text-slate-900 mb-4">{state.typographySettings.headingFont}</p>
+                <p className="text-5xl font-heading font-light tracking-tight text-slate-900 mb-4 truncate">{state.typographySettings.headingFont}</p>
                 <p className="text-2xl font-heading font-light text-slate-400 truncate">Aa Bb Cc Dd Ee Ff</p>
               </div>
             </div>
             <div className="space-y-6">
               <h3 className="text-[10px] uppercase tracking-widest text-slate-400 font-medium">Secondary / Body</h3>
               <div className="pb-12 border-b border-slate-100">
-                <p className="text-5xl font-body font-light tracking-tight text-slate-900 mb-4">{state.typographySettings.bodyFont}</p>
+                <p className="text-5xl font-body font-light tracking-tight text-slate-900 mb-4 truncate">{state.typographySettings.bodyFont}</p>
                 <p className="text-base font-body font-light text-slate-500 leading-relaxed">
                   Typography establishes our voice. The secondary typeface is optimized for legibility at smaller sizes and long-form reading.
                 </p>
@@ -296,9 +332,9 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
         </PageWrapper>
       );
 
-    case 13: // Iconography
+    case 14: // Iconography
       return (
-        <PageWrapper section="Iconography" number="14">
+        <PageWrapper section="Iconography" number="15">
           <div className="max-w-4xl space-y-16">
             <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium">System Icons</h2>
             <div className="grid grid-cols-4 md:grid-cols-8 gap-8">
@@ -315,9 +351,9 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
         </PageWrapper>
       );
 
-    case 14: // Photography
+    case 15: // Photography
       return (
-        <PageWrapper section="Art Direction" number="15">
+        <PageWrapper section="Art Direction" number="16">
            <div className="max-w-3xl">
             <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-12">Photography Style</h2>
             <p className="text-3xl md:text-4xl font-light leading-relaxed text-slate-800">
@@ -327,57 +363,73 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
         </PageWrapper>
       );
 
-    case 15: // Mockup 1
+    case 16: // Brand Pattern
       return (
-        <PageWrapper section="Application" number="16">
+        <PageWrapper section="Graphic Elements" number="17">
           <div className="w-full h-full flex flex-col justify-center">
-             <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-8">Brand In Context I</h2>
+             <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-8">Brand Pattern</h2>
              <div className="flex-1 bg-slate-50 border border-slate-100 flex items-center justify-center overflow-hidden">
-                {state.mockupImage ? (
-                  <img src={state.mockupImage} className="w-full h-full object-cover mix-blend-multiply opacity-90" alt="Mockup 1" />
+                {state.brandPattern ? (
+                  <img src={state.brandPattern} className="w-full h-full object-cover opacity-80 mix-blend-multiply" alt="Brand Pattern" />
                 ) : (
-                  <p className="text-xs text-slate-400 uppercase tracking-widest font-medium">No Application Image Provided</p>
+                  <p className="text-xs text-slate-400 uppercase tracking-widest font-medium">No Pattern Provided</p>
                 )}
              </div>
           </div>
         </PageWrapper>
       );
 
-    case 16: // Mockup 2
-      return (
-        <PageWrapper section="Application" number="17">
-          <div className="w-full h-full flex flex-col justify-center">
-             <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-8">Brand In Context II</h2>
-             <div className="flex-1 bg-slate-50 border border-slate-100 flex items-center justify-center overflow-hidden">
-                {state.mockupImage2 ? (
-                  <img src={state.mockupImage2} className="w-full h-full object-cover mix-blend-multiply opacity-90" alt="Mockup 2" />
-                ) : (
-                  <p className="text-xs text-slate-400 uppercase tracking-widest font-medium">No Application Image Provided</p>
-                )}
-             </div>
-          </div>
-        </PageWrapper>
-      );
-
-    case 17: // Mockup 3
+    case 17: // Stationery Mockup
       return (
         <PageWrapper section="Application" number="18">
           <div className="w-full h-full flex flex-col justify-center">
-             <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-8">Brand In Context III</h2>
+             <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-8">Stationery & Print</h2>
              <div className="flex-1 bg-slate-50 border border-slate-100 flex items-center justify-center overflow-hidden">
-                {state.mockupImage3 ? (
-                  <img src={state.mockupImage3} className="w-full h-full object-cover mix-blend-multiply opacity-90" alt="Mockup 3" />
+                {state.mockupStationery ? (
+                  <img src={state.mockupStationery} className="w-full h-full object-cover mix-blend-multiply opacity-90" alt="Stationery Mockup" />
                 ) : (
-                  <p className="text-xs text-slate-400 uppercase tracking-widest font-medium">No Application Image Provided</p>
+                  <p className="text-xs text-slate-400 uppercase tracking-widest font-medium">No Image Provided</p>
                 )}
              </div>
           </div>
         </PageWrapper>
       );
 
-    case 18: // Conclusion
+    case 18: // Social Mockup
       return (
-        <PageWrapper number="19">
+        <PageWrapper section="Application" number="19">
+          <div className="w-full h-full flex flex-col justify-center">
+             <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-8">Digital & Social</h2>
+             <div className="flex-1 bg-slate-50 border border-slate-100 flex items-center justify-center overflow-hidden">
+                {state.mockupSocial ? (
+                  <img src={state.mockupSocial} className="w-full h-full object-cover mix-blend-multiply opacity-90" alt="Social Media Mockup" />
+                ) : (
+                  <p className="text-xs text-slate-400 uppercase tracking-widest font-medium">No Image Provided</p>
+                )}
+             </div>
+          </div>
+        </PageWrapper>
+      );
+
+    case 19: // Marketing Mockup
+      return (
+        <PageWrapper section="Application" number="20">
+          <div className="w-full h-full flex flex-col justify-center">
+             <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-8">Marketing & Out-of-Home</h2>
+             <div className="flex-1 bg-slate-50 border border-slate-100 flex items-center justify-center overflow-hidden">
+                {state.mockupMarketing ? (
+                  <img src={state.mockupMarketing} className="w-full h-full object-cover mix-blend-multiply opacity-90" alt="Marketing Mockup" />
+                ) : (
+                  <p className="text-xs text-slate-400 uppercase tracking-widest font-medium">No Image Provided</p>
+                )}
+             </div>
+          </div>
+        </PageWrapper>
+      );
+
+    case 20: // Conclusion
+      return (
+        <PageWrapper number="21">
           <div className="h-full flex flex-col justify-center items-center text-center">
              <SampleLogo className="w-12 h-12 mb-12 opacity-50" />
              <h2 className="text-3xl font-light tracking-tight text-slate-900 mb-6">{state.brandName}</h2>
