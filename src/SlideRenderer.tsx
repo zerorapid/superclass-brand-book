@@ -69,11 +69,14 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
     case 0: // Title Page
       return (
         <PageWrapper number="01">
-          <div className="max-w-2xl">
-            <h1 className="text-5xl md:text-7xl font-light tracking-tight leading-[1.1] mb-6 text-slate-900">
+          <div className="absolute top-0 right-0 w-1/2 h-full overflow-hidden bg-slate-100">
+             <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=2000" alt="Cover" className="w-full h-full object-cover mix-blend-multiply opacity-90" />
+          </div>
+          <div className="relative z-10 max-w-xl pr-12 flex flex-col justify-center h-full">
+            <h1 className="text-6xl md:text-8xl font-light tracking-tighter leading-[0.9] mb-8 text-slate-900 uppercase">
               {state.brandName}
             </h1>
-            <p className="text-sm uppercase tracking-[0.2em] text-slate-400 font-medium">
+            <p className="text-sm uppercase tracking-[0.3em] text-slate-400 font-medium">
               {state.tagline}
             </p>
           </div>
@@ -83,11 +86,16 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
     case 1: // Origin
       return (
         <PageWrapper section="Origin" number="02">
-          <div className="max-w-3xl">
-            <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-12">Core Message</h2>
-            <p className="text-3xl md:text-4xl font-light leading-relaxed text-slate-800">
-              {state.introduction}
-            </p>
+          <div className="grid grid-cols-2 gap-24 items-center h-full">
+            <div className="max-w-2xl">
+              <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-12">Core Message</h2>
+              <p className="text-3xl md:text-4xl font-light leading-relaxed text-slate-800">
+                {state.introduction}
+              </p>
+            </div>
+            <div className="h-full w-full bg-slate-50 relative overflow-hidden">
+               <img src="https://images.unsplash.com/photo-1552674605-15c37127e106?auto=format&fit=crop&q=80&w=2000" alt="Origin" className="w-full h-full object-cover grayscale opacity-80 mix-blend-multiply" />
+            </div>
           </div>
         </PageWrapper>
       );
@@ -95,11 +103,16 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
     case 2: // Vision
       return (
         <PageWrapper section="Direction" number="03">
-          <div className="max-w-3xl">
-            <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-12">Vision</h2>
-            <p className="text-3xl md:text-4xl font-light leading-relaxed text-slate-800">
-              {state.vision}
-            </p>
+          <div className="grid grid-cols-2 gap-24 items-start pt-12 h-full">
+            <div className="h-[70%] w-full bg-slate-50 relative overflow-hidden mt-12">
+               <img src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&q=80&w=2000" alt="Vision" className="w-full h-full object-cover grayscale opacity-70 mix-blend-multiply" />
+            </div>
+            <div className="max-w-xl mt-24">
+              <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-12">Vision</h2>
+              <p className="text-3xl md:text-4xl font-light leading-relaxed text-slate-800">
+                {state.vision}
+              </p>
+            </div>
           </div>
         </PageWrapper>
       );
@@ -107,26 +120,33 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
     case 3: // Values
       return (
         <PageWrapper section="Foundation" number="04">
-          <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-16">Core Values</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-24 relative z-10">Core Values</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
             {state.coreValues.map((val, i) => (
-               <div key={i} className="border-t border-slate-100 pt-8">
-                  <p className="text-[10px] font-mono text-slate-400 mb-4 tracking-widest">0{i+1}</p>
-                  <p className="text-xl md:text-2xl font-light text-slate-800 leading-snug">{val}</p>
+               <div key={i} className="border-t-2 border-slate-900 pt-8">
+                  <p className="text-6xl font-light text-slate-300 mb-8 tracking-tighter">0{i+1}</p>
+                  <p className="text-2xl md:text-3xl font-medium text-slate-900 leading-snug uppercase tracking-tight">{val}</p>
                </div>
             ))}
           </div>
+          <div className="absolute right-12 bottom-12 text-[400px] font-bold text-slate-50 leading-none tracking-tighter z-0 pointer-events-none select-none">V</div>
         </PageWrapper>
       );
 
     case 4: // Voice
       return (
         <PageWrapper section="Communication" number="05">
-          <div className="max-w-3xl">
-            <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-12">Tone of Voice</h2>
-            <p className="text-3xl md:text-4xl font-light leading-relaxed text-slate-800">
-              {state.toneOfVoice}
-            </p>
+          <div className="grid grid-cols-2 gap-24 items-center h-full">
+            <div className="max-w-2xl">
+              <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-12">Tone of Voice</h2>
+              <p className="text-3xl md:text-4xl font-light leading-relaxed text-slate-800">
+                {state.toneOfVoice}
+              </p>
+            </div>
+            <div className="h-[80%] w-full bg-slate-900 relative overflow-hidden flex items-center justify-center p-16">
+               <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white to-transparent"></div>
+               <p className="text-5xl md:text-6xl font-light text-white text-center leading-tight tracking-tight">"We speak with absolute conviction."</p>
+            </div>
           </div>
         </PageWrapper>
       );
@@ -134,23 +154,29 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
     case 5: // Positioning (New)
       return (
         <PageWrapper section="Positioning" number="06">
-          <div className="max-w-3xl">
-            <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-12">The Elevator Pitch</h2>
-            <p className="text-3xl md:text-4xl font-light leading-relaxed text-slate-800">
+          <div className="h-full flex flex-col justify-center items-center text-center max-w-5xl mx-auto relative z-10">
+            <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-16">The Elevator Pitch</h2>
+            <p className="text-4xl md:text-6xl font-light leading-[1.2] text-slate-900 tracking-tight">
               {state.positioning}
             </p>
           </div>
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[600px] text-slate-50 font-bold opacity-50 pointer-events-none z-0">”</div>
         </PageWrapper>
       );
 
     case 6: // Target Audience (New)
       return (
         <PageWrapper section="Audience" number="07">
-          <div className="max-w-3xl">
-            <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-12">Target Persona</h2>
-            <p className="text-3xl md:text-4xl font-light leading-relaxed text-slate-800">
-              {state.audience}
-            </p>
+          <div className="grid grid-cols-2 gap-24 h-full items-center">
+             <div className="h-[90%] w-full overflow-hidden bg-slate-100">
+               <img src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&q=80&w=2000" alt="Audience" className="w-full h-full object-cover grayscale opacity-90 mix-blend-multiply" />
+             </div>
+             <div className="flex flex-col justify-center pr-12">
+                <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-12">Target Persona</h2>
+                <p className="text-2xl md:text-3xl font-light leading-relaxed text-slate-800">
+                  {state.audience}
+                </p>
+             </div>
           </div>
         </PageWrapper>
       );
