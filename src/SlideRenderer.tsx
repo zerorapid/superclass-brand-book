@@ -526,14 +526,22 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
     case 23: // Stationery Mockup
       return (
         <PageWrapper section="Application" number="24">
-          <div className="w-full h-full flex flex-col justify-center">
-             <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-8">Stationery & Print</h2>
-             <div className="flex-1 bg-slate-50 border border-slate-100 flex items-center justify-center overflow-hidden">
-                {state.mockupStationery ? (
-                  <img src={state.mockupStationery} className="w-full h-full object-cover mix-blend-multiply opacity-90" alt="Stationery Mockup" />
-                ) : (
-                  <p className="text-xs text-slate-400 uppercase tracking-widest font-medium">No Image Provided</p>
-                )}
+          <div className="w-full h-full flex flex-col">
+             <h2 className="text-xs uppercase tracking-widest text-slate-400 font-bold mb-8">Stationery & Print</h2>
+             <div className="flex-1 grid grid-cols-3 grid-rows-2 gap-4 min-h-0">
+                <div className="col-span-2 row-span-2 bg-slate-50 border border-slate-100 overflow-hidden relative">
+                   {state.mockupStationery ? (
+                     <img src={state.mockupStationery} className="w-full h-full object-cover mix-blend-multiply opacity-90" alt="Stationery" />
+                   ) : (
+                     <div className="w-full h-full bg-slate-50 flex items-center justify-center p-8 text-center">
+                       <span className="text-[10px] text-slate-300 tracking-widest uppercase font-medium">Primary Format Placeholder</span>
+                     </div>
+                   )}
+                </div>
+                <div className="col-span-1 row-span-1 bg-slate-100 border border-slate-200 overflow-hidden relative opacity-50" style={{ backgroundColor: state.primaryColors[0]?.hex || '#f8fafc' }} />
+                <div className="col-span-1 row-span-1 bg-slate-50 border border-slate-100 overflow-hidden relative flex items-center justify-center">
+                   <SampleLogo className="w-12 h-12 opacity-20" />
+                </div>
              </div>
           </div>
         </PageWrapper>
@@ -542,14 +550,27 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
     case 24: // Social Mockup
       return (
         <PageWrapper section="Application" number="25">
-          <div className="w-full h-full flex flex-col justify-center">
-             <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-8">Digital & Social</h2>
-             <div className="flex-1 bg-slate-50 border border-slate-100 flex items-center justify-center overflow-hidden">
-                {state.mockupSocial ? (
-                  <img src={state.mockupSocial} className="w-full h-full object-cover mix-blend-multiply opacity-90" alt="Social Media Mockup" />
-                ) : (
-                  <p className="text-xs text-slate-400 uppercase tracking-widest font-medium">No Image Provided</p>
-                )}
+          <div className="w-full h-full flex flex-col">
+             <h2 className="text-xs uppercase tracking-widest text-slate-400 font-bold mb-8">Digital & Social</h2>
+             <div className="flex-1 grid grid-cols-4 grid-rows-1 gap-4 min-h-0">
+                <div className="col-span-1 grid grid-rows-3 gap-4">
+                  <div className="bg-slate-100 overflow-hidden relative" style={{ backgroundImage: `url(${state.brandPattern})`, backgroundSize: 'cover', opacity: 0.5 }} />
+                  <div className="bg-slate-50 border border-slate-100 flex items-center justify-center">
+                     <span className="text-[10px] text-slate-400 font-medium tracking-widest">@{state.brandName.toLowerCase().replace(/\s+/g, '')}</span>
+                  </div>
+                  <div className="bg-slate-900 flex items-center justify-center p-6 text-center">
+                    <SampleLogo className="w-8 h-8" color="#FFFFFF" />
+                  </div>
+                </div>
+                <div className="col-span-3 bg-slate-50 border border-slate-100 overflow-hidden relative">
+                   {state.mockupSocial ? (
+                     <img src={state.mockupSocial} className="w-full h-full object-cover mix-blend-multiply opacity-90" alt="Social" />
+                   ) : (
+                     <div className="w-full h-full bg-slate-50 flex items-center justify-center">
+                       <span className="text-[10px] text-slate-300 tracking-widest uppercase font-medium">Digital Feed Layout Placeholder</span>
+                     </div>
+                   )}
+                </div>
              </div>
           </div>
         </PageWrapper>
@@ -558,14 +579,26 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
     case 25: // Marketing Mockup
       return (
         <PageWrapper section="Application" number="26">
-          <div className="w-full h-full flex flex-col justify-center">
-             <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-8">Marketing & Out-of-Home</h2>
-             <div className="flex-1 bg-slate-50 border border-slate-100 flex items-center justify-center overflow-hidden">
-                {state.mockupMarketing ? (
-                  <img src={state.mockupMarketing} className="w-full h-full object-cover mix-blend-multiply opacity-90" alt="Marketing Mockup" />
-                ) : (
-                  <p className="text-xs text-slate-400 uppercase tracking-widest font-medium">No Image Provided</p>
-                )}
+          <div className="w-full h-full flex flex-col">
+             <h2 className="text-xs uppercase tracking-widest text-slate-400 font-bold mb-8">Marketing & Out-of-Home</h2>
+             <div className="flex-1 grid grid-cols-1 grid-rows-3 gap-4 min-h-0">
+                <div className="row-span-2 bg-slate-50 border border-slate-100 overflow-hidden relative">
+                   {state.mockupMarketing ? (
+                     <img src={state.mockupMarketing} className="w-full h-full object-cover mix-blend-multiply opacity-90" alt="Marketing" />
+                   ) : (
+                     <div className="w-full h-full bg-slate-50 flex items-center justify-center">
+                       <span className="text-[10px] text-slate-300 tracking-widest uppercase font-medium">Billboard / OOH Placeholder</span>
+                     </div>
+                   )}
+                </div>
+                <div className="row-span-1 grid grid-cols-3 gap-4">
+                  <div className="col-span-2 bg-slate-900 flex items-center justify-center px-12">
+                     <p className="text-white text-3xl md:text-4xl font-light tracking-tight">{state.tagline}</p>
+                  </div>
+                  <div className="col-span-1 bg-slate-50 border border-slate-100 flex items-center justify-center">
+                    <SampleLogo className="w-16 h-16 opacity-40" />
+                  </div>
+                </div>
              </div>
           </div>
         </PageWrapper>
