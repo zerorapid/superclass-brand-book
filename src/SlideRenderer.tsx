@@ -44,24 +44,27 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
       initial={state.isExporting ? false : "initial"}
       animate={state.isExporting ? false : "animate"}
       exit={state.isExporting ? false : "exit"}
-      className="w-full h-full bg-white p-12 md:p-20 flex flex-col font-sans relative text-slate-900"
+      className="w-full h-full bg-white p-12 md:p-16 flex flex-col font-sans relative text-slate-900 overflow-hidden"
     >
-      <div className="flex justify-between items-start flex-none">
+      <div className="flex justify-between items-start flex-none relative z-50">
         <SampleLogo className="h-6 w-auto" />
-        <div className="flex gap-12 text-[10px] font-medium tracking-widest uppercase text-slate-400">
+        <div className="flex gap-12 text-[10px] font-bold tracking-widest uppercase text-slate-400">
            {section && <span>{section}</span>}
            <span>{number}</span>
         </div>
       </div>
       
-      <div className="flex-1 flex flex-col justify-center">
+      <div className="flex-1 flex flex-col justify-center mt-12 relative z-10">
         {children}
       </div>
       
-      <div className="flex-none flex justify-between items-end text-[9px] font-medium tracking-widest uppercase text-slate-300">
+      <div className="flex-none flex justify-between items-end text-[9px] font-medium tracking-widest uppercase text-slate-300 pt-8 relative z-50">
         <span>{state.brandName}</span>
         <span>Brand Identity System</span>
       </div>
+      
+      {/* Structural Footnote Line */}
+      <div className="absolute bottom-[88px] left-12 right-12 h-px bg-slate-100 z-0 pointer-events-none" />
     </motion.div>
   );
 
