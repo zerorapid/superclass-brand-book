@@ -18,7 +18,15 @@ export interface BrandBookState {
   brandName: string;
   tagline: string;
   introduction: string;
+  vision: string;
+  coreValues: [string, string, string];
+  toneOfVoice: string;
+  
+  // Marks & Assets
   primaryLogo: string;
+  secondaryLogo: string;
+  mockupImage: string;
+  photographyStyle: string;
   
   // Aesthetics
   primaryColors: BrandColor[];
@@ -42,9 +50,17 @@ export const INITIAL_STATE: BrandBookState = {
   brandName: 'Superclass',
   tagline: 'Brand Identity Platform',
   introduction: 'Superclass is a definitive brand identity generator designed for modern agencies and digital creators. It provides a robust, scalable framework for visual consistency.',
+  vision: 'To become the global standard for frictionless, high-fidelity brand distribution.',
+  coreValues: ['Radical Simplicity', 'Unyielding Precision', 'Velocity'],
+  toneOfVoice: 'Authoritative, precise, and understated. We speak with the quiet confidence of superior engineering.',
+  
   primaryLogo: '', 
+  secondaryLogo: '',
+  mockupImage: '',
+  photographyStyle: 'Clean, high-contrast structural compositions with an emphasis on geometric shadows and stark, minimalist environments.',
   
   primaryColors: [
+
     { hex: '#212A29', name: 'Obsidian' },
     { hex: '#00F5FF', name: 'Electric Cyan' }
   ],

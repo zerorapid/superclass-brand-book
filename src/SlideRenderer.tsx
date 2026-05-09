@@ -14,9 +14,10 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
     exit: { opacity: 0, transition: { duration: 0.4 } }
   };
 
-  const SampleLogo = ({ className = "w-12 h-12", color }: { className?: string, color?: string }) => {
-    if (state.primaryLogo) {
-      return <img src={state.primaryLogo} alt="Logo" className={`${className} object-contain`} style={{ filter: color === '#FFFFFF' ? 'brightness(0) invert(1)' : color ? 'brightness(0)' : 'none' }}/>;
+  const SampleLogo = ({ className = "w-12 h-12", color, useSecondary = false }: { className?: string, color?: string, useSecondary?: boolean }) => {
+    const src = useSecondary ? state.secondaryLogo : state.primaryLogo;
+    if (src) {
+      return <img src={src} alt="Logo" className={`${className} object-contain`} style={{ filter: color === '#FFFFFF' ? 'brightness(0) invert(1)' : color ? 'brightness(0)' : 'none' }}/>;
     }
     return (
       <div className={`relative flex items-center justify-center ${className}`}>
@@ -67,7 +68,7 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
         </PageWrapper>
       );
 
-    case 1: // Brand Introduction
+    case 1: // Origin
       return (
         <PageWrapper section="Origin" number="02">
           <div className="max-w-3xl">
@@ -79,9 +80,48 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
         </PageWrapper>
       );
 
-    case 2: // Primary Logo
+    case 2: // Vision
       return (
-        <PageWrapper section="Identity" number="03">
+        <PageWrapper section="Direction" number="03">
+          <div className="max-w-3xl">
+            <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-12">Vision</h2>
+            <p className="text-3xl md:text-4xl font-light leading-relaxed text-slate-800">
+              {state.vision}
+            </p>
+          </div>
+        </PageWrapper>
+      );
+
+    case 3: // Values
+      return (
+        <PageWrapper section="Foundation" number="04">
+          <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-16">Core Values</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {state.coreValues.map((val, i) => (
+               <div key={i} className="border-t border-slate-100 pt-8">
+                  <p className="text-[10px] font-mono text-slate-400 mb-4 tracking-widest">0{i+1}</p>
+                  <p className="text-xl md:text-2xl font-light text-slate-800 leading-snug">{val}</p>
+               </div>
+            ))}
+          </div>
+        </PageWrapper>
+      );
+
+    case 4: // Voice
+      return (
+        <PageWrapper section="Communication" number="05">
+          <div className="max-w-3xl">
+            <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-12">Tone of Voice</h2>
+            <p className="text-3xl md:text-4xl font-light leading-relaxed text-slate-800">
+              {state.toneOfVoice}
+            </p>
+          </div>
+        </PageWrapper>
+      );
+
+    case 5: // Primary Logo
+      return (
+        <PageWrapper section="Identity" number="06">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
             <div className="flex items-center justify-center min-h-[300px]">
                <SampleLogo className="w-full h-full max-w-[60%]" />
@@ -96,9 +136,30 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
         </PageWrapper>
       );
 
-    case 3: // Logo Variations
+    case 6: // Secondary Logo
       return (
-        <PageWrapper section="Adaptability" number="04">
+        <PageWrapper section="Identity" number="07">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
+            <div className="flex items-center justify-center min-h-[300px] bg-slate-50">
+               {state.secondaryLogo ? (
+                 <SampleLogo className="w-full h-full max-w-[50%]" useSecondary />
+               ) : (
+                 <p className="text-xs text-slate-400 uppercase tracking-widest font-medium">No Alternate Provided</p>
+               )}
+            </div>
+            <div className="space-y-8 max-w-sm">
+              <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium">Secondary Mark</h2>
+              <p className="text-base font-light leading-relaxed text-slate-600">
+                Used when spatial constraints or formatting requirements prevent the use of the primary mark.
+              </p>
+            </div>
+          </div>
+        </PageWrapper>
+      );
+
+    case 7: // Logo Variations
+      return (
+        <PageWrapper section="Adaptability" number="08">
            <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-16">Variations</h2>
           <div className="grid grid-cols-2 gap-12">
             <div className="space-y-6">
@@ -117,13 +178,12 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
         </PageWrapper>
       );
 
-    case 4: // Clear Space
+    case 8: // Clear Space
       return (
-        <PageWrapper section="Parameters" number="05">
+        <PageWrapper section="Parameters" number="09">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
             <div className="flex items-center justify-center">
-              <div className="relative inline-block p-16">
-                 <div className="absolute top-0 left-0 bottom-0 right-0 border border-slate-200" />
+              <div className="relative inline-block p-16 border border-slate-100 bg-slate-50">
                  <div className="absolute top-4 left-4 text-[10px] font-mono text-slate-400">X</div>
                  <div className="absolute top-4 right-4 text-[10px] font-mono text-slate-400">X</div>
                  <div className="absolute bottom-4 left-4 text-[10px] font-mono text-slate-400">X</div>
@@ -141,9 +201,9 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
         </PageWrapper>
       );
 
-    case 5: // Improper Usage
+    case 9: // Improper Usage
       return (
-        <PageWrapper section="Prohibited" number="06">
+        <PageWrapper section="Prohibited" number="10">
           <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-16">Improper Usage</h2>
           <div className="grid grid-cols-3 gap-12">
             {[
@@ -164,9 +224,9 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
         </PageWrapper>
       );
 
-    case 6: // Color Palette
+    case 10: // Color Palette
       return (
-        <PageWrapper section="Spectrum" number="07">
+        <PageWrapper section="Spectrum" number="11">
           <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-16">Color System</h2>
           <div className="flex h-64 gap-2 mb-8">
             {state.primaryColors.map((color, i) => (
@@ -187,9 +247,9 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
         </PageWrapper>
       );
 
-    case 7: // Typography
+    case 11: // Typography
       return (
-        <PageWrapper section="Type System" number="08">
+        <PageWrapper section="Type System" number="12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-24 h-full items-center">
             <div className="space-y-6">
               <h3 className="text-[10px] uppercase tracking-widest text-slate-400 font-medium">Primary / Heading</h3>
@@ -211,9 +271,37 @@ export const SlideRenderer = ({ state, index }: SlideRendererProps) => {
         </PageWrapper>
       );
 
-    case 8: // Conclusion
+    case 12: // Photography
       return (
-        <PageWrapper number="09">
+        <PageWrapper section="Art Direction" number="13">
+           <div className="max-w-3xl">
+            <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-12">Photography Style</h2>
+            <p className="text-3xl md:text-4xl font-light leading-relaxed text-slate-800">
+              {state.photographyStyle}
+            </p>
+          </div>
+        </PageWrapper>
+      );
+
+    case 13: // Mockup
+      return (
+        <PageWrapper section="Application" number="14">
+          <div className="w-full h-full flex flex-col justify-center">
+             <h2 className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-8">Brand In Context</h2>
+             <div className="flex-1 bg-slate-50 border border-slate-100 flex items-center justify-center overflow-hidden">
+                {state.mockupImage ? (
+                  <img src={state.mockupImage} className="w-full h-full object-cover mix-blend-multiply opacity-90" alt="Mockup" />
+                ) : (
+                  <p className="text-xs text-slate-400 uppercase tracking-widest font-medium">No Application Image Provided</p>
+                )}
+             </div>
+          </div>
+        </PageWrapper>
+      );
+
+    case 14: // Conclusion
+      return (
+        <PageWrapper number="15">
           <div className="h-full flex flex-col justify-center items-center text-center">
              <SampleLogo className="w-12 h-12 mb-12 opacity-50" />
              <h2 className="text-3xl font-light tracking-tight text-slate-900 mb-6">{state.brandName}</h2>
